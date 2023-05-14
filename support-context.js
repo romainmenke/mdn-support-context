@@ -92,7 +92,7 @@ function renderCard(data) {
   let mainCard = `
     <details class="baseline-indicator supported support-context" style="background: hsl(${Math.round(hue)}deg 38.89% 92.94%)">
       <summary>
-        <h2>Supported in: <span class="not-bold">${data.percentageOfTarget}% of your targets</span></h2><br>
+        <h2>Supported in: <span class="not-bold">${data.percentageOfTarget}% of your targets ${data.percentageOfTarget === 100 ? '🎉' : ''}</span></h2><br>
         <div>Stable in: ${data.numberOfVendorImplementations} ${data.numberOfVendorImplementations === 1 ? 'engine' : 'engines'}</div>
       </summary>
       
@@ -120,6 +120,7 @@ let init = () => {
 
   let browserCompat = doc.browserCompat;
   if (!browserCompat) return;
+  if (!browserCompat.length) return;
 
   const supportTargetArray = browserslist(browserslistUserSettings, {
     ignoreUnknownVersions: true,
@@ -171,7 +172,7 @@ let init = () => {
   }
 
   const renderData = {
-    percentageOfTarget: 100,
+    percentageOfTarget: 0,
     numberOfVendorImplementations: 0
   };
 
@@ -187,9 +188,9 @@ let init = () => {
   }
 
   const featureCoverage = browserslist.coverage(supportedAndTargetedBrowsers);
-
-  if (coverage !== featureCoverage) {
-    renderData.percentageOfTarget = Math.min(100, ((featureCoverage / coverage) * 100)).toFixed(1);
+  renderData.percentageOfTarget = Math.min(100, ((featureCoverage / coverage) * 100)).toFixed(1);
+  if (Number.isNaN(renderData.percentageOfTarget)) {
+    renderData.percentageOfTarget = 0;
   }
 
   {
