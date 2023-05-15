@@ -22,8 +22,13 @@ function featureToBrowsersList(feature) {
     return browsers;
   }
 
+  const status = feature.__compat.status;
+  if (status && status.experimental) return false
+  if (status && status.deprecated) return false;
+
   const query = [];
   const support = feature.__compat.support;
+
   for (const browser in support) {
     if (ignoreBrowsersMDN.test(browser)) continue;
 
@@ -58,7 +63,12 @@ function featureToBrowsersList(feature) {
   for (const key in feature) {
     if (key === '__compat') continue;
 
-    const newSet = new Set(featureToBrowsersList(feature[key]));
+    const browsersListForSubFeature = featureToBrowsersList(feature[key])
+    if (browsersListForSubFeature === false) {
+      continue;
+    }
+
+    const newSet = new Set(browsersListForSubFeature);
     browsers = browsers.filter((x) => newSet.has(x));
   }
 
@@ -90,7 +100,7 @@ function renderCard(data) {
   }
 
   if (data.percentageOfTarget < 90 || data.numberOfVendorImplementations !== 3) {
-    advice += `<p class="advice">Some API's consist of multiple sub features. Consult the <a href="#browser_compatibility">compatibility table</a> for more details and context.</p>`;
+    advice += `<p class="advice">Some API's consist of multiple sub features. Maybe the sub feature you want to use is fully supported. Consult the <a href="#browser_compatibility">compatibility table</a> for more details and context.</p>`;
   }
 
   let mainCard = `
@@ -150,7 +160,10 @@ let init = () => {
 
     if (!obj) continue;
 
-    const newSet = new Set(featureToBrowsersList(obj).filter((x) => !ignoreBrowsersBrowserslist.test(x)));
+    const browsersListForFeature = featureToBrowsersList(obj);
+    if (!browsersListForFeature) continue;
+
+    const newSet = new Set(browsersListForFeature.filter((x) => !ignoreBrowsersBrowserslist.test(x)));
 
     if (i === 0) {
       browsersWithSupportForFeature = Array.from(newSet);
