@@ -107,7 +107,7 @@ function renderCard(data) {
     <details class="baseline-indicator supported support-context" style="background: hsl(${Math.round(hue)}deg ${saturation}% ${lightness}%)">
       <summary>
         <h2>Supported in: <span class="not-bold">${data.percentageOfTarget}% of your targets ${data.percentageOfTarget === '100.0' ? '🎉' : ''}</span></h2><br>
-        <div>Stable in: ${data.numberOfVendorImplementations} ${data.numberOfVendorImplementations === 1 ? 'engine' : 'engines'}</div>
+        <div>Stable in: ${data.numberOfVendorImplementations}/3 browser engines</div>
       </summary>
       
       <div class="extra">${advice}</div>
