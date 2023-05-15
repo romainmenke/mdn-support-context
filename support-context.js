@@ -65,9 +65,13 @@ function featureToBrowsersList(feature) {
   return browsers;
 }
 
+const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
 function renderCard(data) {
   let threshold = Math.max(0, data.percentageOfTarget - 70) / 30;
   let hue = 140 * (threshold);
+  let saturation = isDarkMode.matches ? 50 : 39;
+  let lightness = isDarkMode.matches ? 12 : 93;
 
   let advice = '';
 
@@ -90,9 +94,9 @@ function renderCard(data) {
   }
 
   let mainCard = `
-    <details class="baseline-indicator supported support-context" style="background: hsl(${Math.round(hue)}deg 38.89% 92.94%)">
+    <details class="baseline-indicator supported support-context" style="background: hsl(${Math.round(hue)}deg ${saturation}% ${lightness}%)">
       <summary>
-        <h2>Supported in: <span class="not-bold">${data.percentageOfTarget}% of your targets ${data.percentageOfTarget === 100 ? '🎉' : ''}</span></h2><br>
+        <h2>Supported in: <span class="not-bold">${data.percentageOfTarget}% of your targets ${data.percentageOfTarget === '100.0' ? '🎉' : ''}</span></h2><br>
         <div>Stable in: ${data.numberOfVendorImplementations} ${data.numberOfVendorImplementations === 1 ? 'engine' : 'engines'}</div>
       </summary>
       
