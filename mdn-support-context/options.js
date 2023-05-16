@@ -17,14 +17,15 @@ const saveOptions = () => {
 	);
 };
 
-const restoreOptions = () => {
-	chrome.storage.sync.get(
-		{ browserslist: 'defaults' },
-		(items) => {
-			document.getElementById('browserslist').value = items.browserslist;
+document.addEventListener('DOMContentLoaded', () => {
+	chrome.storage.sync.get((items) => {
+		if (!items || !items.browserslist) {
+			document.getElementById('browserslist').value = 'defaults';
+			return;
 		}
-	);
-};
 
-document.addEventListener('DOMContentLoaded', restoreOptions);
+		document.getElementById('browserslist').value = items.browserslist;
+	});
+});
+
 document.getElementById('save').addEventListener('click', saveOptions);

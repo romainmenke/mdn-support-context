@@ -9,16 +9,12 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "options_page": "options.html",
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
   },
   "permissions": [
     "storage"
-  ],
-  "host_permissions": [
-    "https://developer.chrome.com/*"
   ],
   "content_scripts": [
     {
