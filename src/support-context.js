@@ -33,24 +33,7 @@ function featureToBrowsersList(feature) {
 		if (ignoreBrowsersMDN.test(browser)) continue;
 
 		if (support[browser]) {
-			let versions = Array.isArray(support[browser]) ? support[browser] : [support[browser]];
-
-			for (let i = 0; i < versions.length; i++) {
-				let versionInfo = versions[i];
-				let versionAdded = versionInfo.version_added;
-				if (!versionAdded) continue;
-				if (versionInfo.flags) continue;
-				if (versionInfo.version_removed) continue;
-				if (versionInfo.prefix) continue;
-				if (versionInfo.alternative_name) continue;
-				if (versionInfo.partial_implementation) continue;
-
-				if (versionAdded.startsWith('≤')) {
-					versionAdded = versionAdded.substring(1);
-				}
-
-				query.push(`${MDNToBrowserlist[browser] || browser} >= ${versionAdded}`);
-			}
+			query.push(`${MDNToBrowserlist[browser] || browser} >= ${support[browser]}`);
 		}
 	}
 
@@ -136,6 +119,8 @@ let init = () => {
 	if (!browserCompat) return;
 	if (!browserCompat.length) return;
 
+	init = () => { };
+
 	const supportTargetArray = browserslist(browserslistUserSettings, {
 		ignoreUnknownVersions: true,
 		mobileToDesktop: true
@@ -179,11 +164,11 @@ let init = () => {
 	let hasFirefox = false;
 
 	for (const browser of browsersWithSupportForFeature) {
-		if (browser.startsWith('safari')) {
+		if (browser.startsWith('safari ')) {
 			hasSafari = true;
-		} else if (browser.startsWith('chrome')) {
+		} else if (browser.startsWith('chrome ')) {
 			hasChrome = true;
-		} else if (browser.startsWith('firefox')) {
+		} else if (browser.startsWith('firefox ')) {
 			hasFirefox = true;
 		}
 	}
@@ -221,8 +206,6 @@ let init = () => {
 			}
 		};
 	}
-
-	init = () => { };
 };
 
 init();
@@ -230,11 +213,11 @@ init();
 document.addEventListener('readyStateChange', init);
 
 chrome.storage.sync.get((items) => {
-	if (!items || !items.browserslist) {
+	if (items && items.browserslist) {
+		browserslistUserSettings = items.browserslist;
+	} else {
 		browserslistUserSettings = 'defaults';
-		return;
 	}
 
-	browserslistUserSettings = items.browserslist;
 	init();
 });

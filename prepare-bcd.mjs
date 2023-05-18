@@ -47,9 +47,7 @@ function reduceDataFromBCD(obj) {
 						console.log(obj, 'minimalSupport[browser]', minimalSupport[browser]);
 					}
 
-					minimalSupport[browser] = {
-						version_added: versionAdded
-					};
+					minimalSupport[browser] = versionAdded;
 				}
 			}
 		}
@@ -71,8 +69,10 @@ function reduceDataFromBCD(obj) {
 }
 
 const bcdCopy = structuredClone(bcd);
+delete bcdCopy.browsers;
+
 reduceDataFromBCD(bcdCopy);
 
 fs.writeFileSync('./src/bcd.js', `
-module.exports = ${JSON.stringify(bcdCopy, null)};
+module.exports = ${JSON.stringify(bcdCopy)};
 `);
