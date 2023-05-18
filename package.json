@@ -1,7 +1,7 @@
 {
   "name": "@rmenke/mdn-support-context",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "author": {
     "email": "romainmenke@gmail.com",
@@ -9,18 +9,17 @@
   },
   "license": "MIT",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "source": "./support-context.js",
+  "source": "./src/support-context.js",
   "global": "./mdn-support-context/scripts/support-context.js",
   "targets": {
     "global": {
       "context": "browser",
-      "outputFormat": "global",
-      "isLibrary": true
+      "outputFormat": "global"
     }
   },
   "scripts": {
     "watch": "parcel watch",
-    "build": "parcel build"
+    "build": "node ./prepare-bcd.mjs && parcel build --no-source-maps"
   },
   "devDependencies": {
     "@mdn/browser-compat-data": "^5.2.57",
