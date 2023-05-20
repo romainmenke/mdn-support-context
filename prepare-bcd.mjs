@@ -1,7 +1,7 @@
 import bcd from '@mdn/browser-compat-data' assert { type: 'json' };
 import fs from 'fs';
 
-const ignoreBrowsersMDN = /^(chrome_android|firefox_android|webview_android|oculus|nodejs)/i;
+const ignoreBrowsersMDN = /^(chrome_android|firefox_android|webview_android|oculus|nodejs|deno)/i;
 
 function reduceDataFromBCD(obj) {
 	if (!obj) return;

@@ -2,7 +2,7 @@
 
 > Your personal Baseline
 
-This is a [Chrome extension](https://chrome.google.com/webstore/detail/support-context/dcbelpbochjfadialnomdpnndkmmlpfo?hl=en&authuser=1) that does two things :
+This is a [Chrome](https://chrome.google.com/webstore/detail/support-context/dcbelpbochjfadialnomdpnndkmmlpfo?hl=en&authuser=1) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/support-context/) extension that does two things :
 - it removes the Baseline banner from MDN pages
 - it adds personalized support information to the page
 

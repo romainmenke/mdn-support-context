@@ -1,29 +1,32 @@
 {
-  "name": "@rmenke/mdn-support-context",
-  "private": true,
-  "version": "1.0.6",
-  "description": "",
-  "author": {
-    "email": "romainmenke@gmail.com",
-    "name": "Romain Menke"
-  },
-  "license": "MIT",
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "source": "./src/support-context.js",
-  "global": "./mdn-support-context/scripts/support-context.js",
-  "targets": {
-    "global": {
-      "context": "browser",
-      "outputFormat": "global"
-    }
-  },
-  "scripts": {
-    "watch": "parcel watch",
-    "build": "node ./prepare-bcd.mjs && parcel build --no-source-maps"
-  },
-  "devDependencies": {
-    "@mdn/browser-compat-data": "^5.2.57",
-    "browserslist": "^4.21.5",
-    "parcel": "^2.8.3"
-  }
+	"name": "@rmenke/mdn-support-context",
+	"private": true,
+	"version": "1.0.7",
+	"description": "",
+	"author": {
+		"email": "romainmenke@gmail.com",
+		"name": "Romain Menke"
+	},
+	"license": "MIT",
+	"browserslist": "> 0.5%, last 2 versions, not dead",
+	"source": "./src/support-context.js",
+	"global": "./mdn-support-context/scripts/support-context.js",
+	"targets": {
+		"global": {
+			"context": "browser",
+			"outputFormat": "global"
+		}
+	},
+	"scripts": {
+		"watch": "parcel watch",
+		"build": "node ./prepare-bcd.mjs && parcel build --no-source-maps && web-ext build --source-dir ./mdn-support-context",
+		"lint": "web-ext lint --source-dir ./mdn-support-context",
+		"web-ext": "web-ext"
+	},
+	"devDependencies": {
+		"@mdn/browser-compat-data": "^5.2.57",
+		"browserslist": "^4.21.5",
+		"parcel": "^2.8.3",
+		"web-ext": "^7.6.2"
+	}
 }
