@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"watch": "parcel watch",
-		"build": "node ./prepare-bcd.mjs && parcel build --no-source-maps && web-ext build --source-dir ./mdn-support-context",
+		"build": "node ./prepare-bcd.mjs && parcel build --no-source-maps && web-ext build --overwrite-dest --source-dir ./mdn-support-context",
 		"lint": "web-ext lint --source-dir ./mdn-support-context",
 		"web-ext": "web-ext"
 	},
