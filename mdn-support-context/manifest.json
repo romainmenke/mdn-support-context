@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Support context",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "Add context about support on MDN documentation, using your own browserslist as a target.",
 	"browser_specific_settings": {
 		"gecko": {
