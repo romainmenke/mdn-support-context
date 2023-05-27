@@ -1,20 +1,30 @@
 {
 	"name": "@rmenke/mdn-support-context",
 	"private": true,
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "",
 	"author": {
 		"email": "romainmenke@gmail.com",
 		"name": "Romain Menke"
 	},
 	"license": "MIT",
-	"browserslist": "> 0.5%, last 2 versions, not dead",
-	"source": "./src/support-context.js",
-	"global": "./mdn-support-context/scripts/support-context.js",
+	"browserslist": "last 4 Chrome versions, last 4 Firefox versions",
+	"source": [
+		"./src/options.js",
+		"./src/support-context.js"
+	],
 	"targets": {
-		"global": {
+		"options": {
 			"context": "browser",
-			"outputFormat": "global"
+			"distDir": "./mdn-support-context/",
+			"outputFormat": "global",
+			"source": "./src/options.js"
+		},
+		"support-context": {
+			"context": "browser",
+			"distDir": "./mdn-support-context/scripts/",
+			"outputFormat": "global",
+			"source": "./src/support-context.js"
 		}
 	},
 	"scripts": {
@@ -26,7 +36,7 @@
 	"devDependencies": {
 		"@mdn/browser-compat-data": "^5.2.57",
 		"browserslist": "^4.21.5",
-		"parcel": "^2.8.3",
+		"parcel": "2.9.0",
 		"web-ext": "^7.6.2"
 	}
 }
