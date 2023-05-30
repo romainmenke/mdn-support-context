@@ -26,22 +26,27 @@ function featureToBrowsersList(feature) {
 	if (status && status.experimental) return false
 	if (status && status.deprecated) return false;
 
-	const query = [];
 	const support = feature.__compat.support;
 
 	for (const browser in support) {
 		if (ignoreBrowsersMDN.test(browser)) continue;
 
-		if (support[browser]) {
-			query.push(`${MDNToBrowserlist[browser] || browser} >= ${support[browser]}`);
+		if (support[browser] && !Number.isNaN(parseFloat(support[browser]))) {
+			try {
+				const newBrowsers = browserslist(
+					`${MDNToBrowserlist[browser] || browser} >= ${support[browser]}`,
+					{
+						ignoreUnknownVersions: true,
+					}
+				);
+
+				browsers.push(...newBrowsers);
+			} catch (e) {
+				// DEBUG :
+				// console.log(e);
+			}
 		}
 	}
-
-	browsers.push(
-		...browserslist(query, {
-			ignoreUnknownVersions: true,
-		})
-	);
 
 	for (const key in feature) {
 		if (key === '__compat') continue;

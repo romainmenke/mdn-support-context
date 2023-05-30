@@ -43,6 +43,10 @@ function reduceDataFromBCD(obj) {
 						versionAdded = versionAdded.substring(1);
 					}
 
+					if (Number.isNaN(Number(versionAdded))) {
+						continue;
+					}
+
 					if (minimalSupport[browser]) {
 						console.log(obj, 'minimalSupport[browser]', minimalSupport[browser]);
 					}
