@@ -3,38 +3,22 @@ const browserslist = require('browserslist');
 
 let browserslistUserSettings = null;
 
-const MDNToBrowserlist = {
-	chrome_android: 'and_chr',
-	safari_ios: 'ios_saf',
-	firefox_android: 'and_ff',
-	opera_android: 'op_mob',
-	samsunginternet_android: 'samsung',
-	webview_android: 'android',
-};
-
 const ignoreBrowsersBrowserslist = /^(op_mini|and_uc|and_qq|kaios|bb|baidu|and_chr|android|and_ff)/i;
-const ignoreBrowsersMDN = /^(chrome_android|firefox_android|webview_android|oculus)/i;
 
 function featureToBrowsersList(feature) {
 	let browsers = [];
 
-	if (!feature.__compat || !feature.__compat.support) {
+	if (!feature.__compat) {
 		return browsers;
 	}
 
-	const status = feature.__compat.status;
-	if (status && status.experimental) return false
-	if (status && status.deprecated) return false;
-
-	const support = feature.__compat.support;
+	const support = feature.__compat;
 
 	for (const browser in support) {
-		if (ignoreBrowsersMDN.test(browser)) continue;
-
 		if (support[browser] && !Number.isNaN(parseFloat(support[browser]))) {
 			try {
 				const newBrowsers = browserslist(
-					`${MDNToBrowserlist[browser] || browser} >= ${support[browser]}`,
+					browser + ' >= ' + support[browser],
 					{
 						ignoreUnknownVersions: true,
 					}

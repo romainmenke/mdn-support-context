@@ -3,6 +3,18 @@ import fs from 'fs';
 
 const ignoreBrowsersMDN = /^(chrome_android|firefox_android|webview_android|oculus|nodejs|deno)/i;
 
+const MDNToBrowserlist = {
+	safari_ios: 'ios_saf',
+	opera_android: 'op_mob',
+	samsunginternet_android: 'samsung',
+	chrome: 'chrome',
+	edge: 'edge',
+	firefox: 'firefox',
+	ie: 'ie',
+	opera: 'opera',
+	safari: 'safari'
+};
+
 function reduceDataFromBCD(obj) {
 	if (!obj) return;
 
@@ -21,6 +33,7 @@ function reduceDataFromBCD(obj) {
 
 		for (const browser in support) {
 			if (ignoreBrowsersMDN.test(browser)) continue;
+			if (!MDNToBrowserlist[browser]) continue;
 
 			if (support[browser]) {
 				let versions = Array.isArray(support[browser]) ? support[browser] : [support[browser]];
@@ -47,16 +60,20 @@ function reduceDataFromBCD(obj) {
 						continue;
 					}
 
-					if (minimalSupport[browser]) {
-						console.log(obj, 'minimalSupport[browser]', minimalSupport[browser]);
+					if (minimalSupport[MDNToBrowserlist[browser]]) {
+						console.log(obj, 'minimalSupport[browser]', minimalSupport[MDNToBrowserlist[browser]]);
 					}
 
-					minimalSupport[browser] = versionAdded;
+					minimalSupport[MDNToBrowserlist[browser]] = versionAdded;
 				}
 			}
 		}
 
-		obj.__compat.support = minimalSupport;
+		obj.__compat = minimalSupport;
+	}
+
+	if (obj.__compat && obj.__compat.status) {
+		delete obj.__compat.status;
 	}
 
 	for (const key in obj) {
@@ -67,6 +84,14 @@ function reduceDataFromBCD(obj) {
 		if (typeof obj[key] === 'string') continue;
 		if (typeof obj[key] === 'number') continue;
 		if (typeof obj[key] === 'boolean') continue;
+
+		if (obj[key].__compat?.status) {
+			const status = obj[key].__compat.status;
+			if (status && (status.experimental || status.deprecated)) {
+				delete obj[key];
+				continue
+			}
+		}
 
 		reduceDataFromBCD(obj[key]);
 	}
