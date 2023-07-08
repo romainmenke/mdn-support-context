@@ -1,7 +1,7 @@
 {
 	"name": "@rmenke/mdn-support-context",
 	"private": true,
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"description": "",
 	"author": {
 		"email": "romainmenke@gmail.com",
@@ -36,7 +36,7 @@
 	"devDependencies": {
 		"@mdn/browser-compat-data": "^5.2.57",
 		"browserslist": "^4.21.5",
-		"parcel": "2.9.0",
+		"parcel": "^2.9.0",
 		"web-ext": "^7.6.2"
 	}
 }
