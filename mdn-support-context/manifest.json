@@ -23,7 +23,9 @@
 	],
 	"content_scripts": [
 		{
-			"js": ["scripts/support-context.js"],
+			"js": [
+				"scripts/support-context.js"
+			],
 			"matches": [
 				"https://developer.mozilla.org/*"
 			]
