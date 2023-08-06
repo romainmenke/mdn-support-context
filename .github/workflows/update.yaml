@@ -8,6 +8,8 @@ jobs:
   build:
     name: 'Update browser-compat-data'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: check out
         uses: actions/checkout@v3
