@@ -5,6 +5,7 @@ const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
 const header = `// ==UserScript==
 // @name        Support context
 // @version     ${version}
+// updateURL    https://raw.githubusercontent.com/romainmenke/mdn-support-context/main/userscript/support-context.user.js
 // @description Add context about support on MDN documentation, using your own browserslist as a target.
 // @author      Romain Menke
 // @match       https://developer.mozilla.org/*
