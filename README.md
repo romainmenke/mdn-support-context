@@ -6,6 +6,8 @@ This is a [Chrome](https://chrome.google.com/webstore/detail/support-context/dcb
 - it removes the Baseline banner from MDN pages
 - it adds personalized support information to the page
 
+It is also available as a [userscript](https://github.com/quoid/userscripts) for Safari : `https://raw.githubusercontent.com/romainmenke/mdn-support-context/main/userscript/support-context.user.js`
+
 ## Configuration
 
 Go to the extension `Options` to set your [browserslist](https://browsersl.ist)
