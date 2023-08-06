@@ -1,6 +1,8 @@
 // ==UserScript==
 // @name        Support context
+// @version     1.0.19
 // @description Add context about support on MDN documentation, using your own browserslist as a target.
+// @author      Romain Menke
 // @match       https://developer.mozilla.org/*
 // @grant       GM.setValue
 // @grant       GM.getValue

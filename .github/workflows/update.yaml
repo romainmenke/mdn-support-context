@@ -1,0 +1,38 @@
+name: 'Update browser-compat-data'
+on:
+  schedule:
+    - cron: '0 10 * * 0'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 'Update browser-compat-data'
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 1
+
+      - name: setup node
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: update
+        run: |
+          npm update @mdn/browser-compat-data
+          npm update browserslist
+          node .github/scripts/set-next-patch-version.mjs
+          npm install
+          npm run build
+
+      - name: save
+        run: |
+          # Git config
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit --allow-empty -m "update browser-compat-data"
+          git push --set-upstream origin main
