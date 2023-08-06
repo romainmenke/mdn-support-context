@@ -1,8 +1,12 @@
-const fs = require('fs');
+import fs from 'fs';
+
+const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
 
 const header = `// ==UserScript==
 // @name        Support context
+// @version     ${version}
 // @description Add context about support on MDN documentation, using your own browserslist as a target.
+// @author      Romain Menke
 // @match       https://developer.mozilla.org/*
 // @grant       GM.setValue
 // @grant       GM.getValue

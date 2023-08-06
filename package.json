@@ -35,8 +35,8 @@
 	},
 	"scripts": {
 		"watch": "parcel watch",
-		"prebuild": "node ./prepare-bcd.mjs",
-		"build": "parcel build --no-source-maps && web-ext build --overwrite-dest --source-dir ./mdn-support-context && node ./add-userscript-header.js",
+		"prebuild": "node .github/scripts/prepare-bcd.mjs",
+		"build": "parcel build --no-source-maps && web-ext build --overwrite-dest --source-dir ./mdn-support-context && node .github/scripts/add-userscript-header.mjs",
 		"lint": "web-ext lint --source-dir ./mdn-support-context",
 		"web-ext": "web-ext"
 	},
@@ -44,6 +44,7 @@
 		"@mdn/browser-compat-data": "^5.2.57",
 		"browserslist": "^4.21.5",
 		"parcel": "^2.9.0",
+		"semver": "^7.5.4",
 		"web-ext": "^7.6.2"
 	}
 }
