@@ -1,7 +1,7 @@
 {
 	"name": "@rmenke/mdn-support-context",
 	"private": true,
-	"version": "1.0.18",
+	"version": "1.0.19",
 	"description": "",
 	"author": {
 		"email": "romainmenke@gmail.com",
@@ -25,11 +25,18 @@
 			"distDir": "./mdn-support-context/scripts/",
 			"outputFormat": "global",
 			"source": "./src/support-context.js"
+		},
+		"userscript": {
+			"context": "browser",
+			"distDir": "./userscript",
+			"outputFormat": "global",
+			"source": "./src/support-context.user.js"
 		}
 	},
 	"scripts": {
 		"watch": "parcel watch",
-		"build": "node ./prepare-bcd.mjs && parcel build --no-source-maps && web-ext build --overwrite-dest --source-dir ./mdn-support-context",
+		"prebuild": "node ./prepare-bcd.mjs",
+		"build": "parcel build --no-source-maps && web-ext build --overwrite-dest --source-dir ./mdn-support-context && node ./add-userscript-header.js",
 		"lint": "web-ext lint --source-dir ./mdn-support-context",
 		"web-ext": "web-ext"
 	},
