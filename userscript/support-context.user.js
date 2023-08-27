@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Support context
-// @version     1.0.21
+// @version     1.0.22
 // @updateURL   https://raw.githubusercontent.com/romainmenke/mdn-support-context/main/userscript/support-context.user.js
 // @downloadURL https://raw.githubusercontent.com/romainmenke/mdn-support-context/main/userscript/support-context.user.js
 // @description Add context about support on MDN documentation, using your own browserslist as a target.
