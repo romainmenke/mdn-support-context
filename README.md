@@ -1,3 +1,8 @@
+Archived because Baseline has a new definition that is much better for developers.
+This tool is no longer needed and therefor I also wont be investing any further time in updating and improving it.
+
+Better to kill it now :)
+
 # MDN Support Context
 
 > Your personal Baseline
